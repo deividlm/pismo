@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  pismo:
+    image: pismo
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - /data/pismo
+    ports:
+      - "8080:8080"
