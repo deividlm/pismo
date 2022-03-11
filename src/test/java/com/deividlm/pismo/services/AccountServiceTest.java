@@ -49,7 +49,7 @@ public class AccountServiceTest {
         this.accountDto.setAccountId(accountId);
 
         this.accountModel = new AccountModel();
-        this.accountModel.setDocumentNumber("123456");;
+        this.accountModel.setDocumentNumber("123456");
         this.accountModel.setAccountId(accountId);
 
         this.accountModelOptional = Optional.of(accountModel);

@@ -55,7 +55,7 @@ public class AccountControllerTest {
 
 
     @Test
-    void whenCreateAccountValidUrlAndMethodAndContentType_thenReturns200() throws Exception {
+    void whenCreateAccountValidUrlAndMethodAndContentType_thenReturnsOk() throws Exception {
         AccountDto accountDto = new AccountDto();
         accountDto.setDocumentNumber("123569");
         given(accountService.createAccount(any())).willReturn(accountModel);
@@ -68,7 +68,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    void whenCreateAccountWithDocumentTypeNull_thenReturns400() throws Exception {
+    void whenCreateAccountWithDocumentTypeNull_thenReturnsBadRequest() throws Exception {
         AccountDto accountDto = new AccountDto();
         given(accountService.createAccount(any())).willReturn(accountModel);
 
@@ -79,7 +79,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    void whenGetOneAccountValidUrlAndMethodAndContentType_thenReturns200() throws Exception {
+    void whenGetOneAccountValidUrlAndMethodAndContentType_thenReturnsOk() throws Exception {
         final UUID accountId = UUID.randomUUID();
         AccountModel accountModel = new AccountModel();
         accountModel.setAccountId(accountId);
@@ -92,7 +92,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    void whenAccountNotExistThenReturn404() throws Exception {
+    void whenAccountNotExistThenReturnNotFound() throws Exception {
         final UUID accountId = UUID.randomUUID();
         given(accountService.findById(accountId)).willReturn(Optional.empty());
 

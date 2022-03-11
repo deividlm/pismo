@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class TransactionServiceImpl implements TransactionService {
 
     private OperationFactory operationFactory;
-    private TransactionRepository transactionRepository;
     private AccountRepository accountRepository;
     private TransactionValidator transactionValidator;
 
@@ -26,7 +25,6 @@ public class TransactionServiceImpl implements TransactionService {
                                   AccountRepository accountRepository,
                                   TransactionValidator transactionValidator){
         this.operationFactory = operationFactory;
-        this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
         this.transactionValidator = transactionValidator;
     }

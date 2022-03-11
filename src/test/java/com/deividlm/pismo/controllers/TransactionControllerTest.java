@@ -27,18 +27,9 @@ public class TransactionControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
-    private TransactionService transactionService;
-
-    @MockBean
-    private TransactionRepository transactionRepository;
-
-    @MockBean
-    private ModelMapper modelMapper;
-
 
     @Test
-    void whenCreateTransactionValidUrlAndMethodAndContentType_thenReturns200() throws Exception {
+    void whenCreateTransactionValidUrlAndMethodAndContentType_thenReturnsOk() throws Exception {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setTransactionType(TransactionType.CASH.name());
         transactionDto.setAccountId(UUID.randomUUID());
@@ -51,7 +42,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void whenCreateTransactionWithAccountIdNull_thenReturn400() throws Exception {
+    void whenCreateTransactionWithAccountIdNull_thenReturnBadRequest() throws Exception {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setTransactionType(TransactionType.CASH.name());
         transactionDto.setAmount(new BigDecimal("100"));
@@ -63,7 +54,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void whenCreateTransactionWithTransactionype_thenReturn400() throws Exception {
+    void whenCreateTransactionWithTransactionype_thenReturnBadRequest() throws Exception {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setAccountId(UUID.randomUUID());
         transactionDto.setAmount(new BigDecimal("100"));
@@ -75,7 +66,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void whenCreateTransactionWithAmountNull_thenReturn400() throws Exception {
+    void whenCreateTransactionWithAmountNull_thenReturnBadRequest() throws Exception {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setAccountId(UUID.randomUUID());
         transactionDto.setTransactionType(TransactionType.CASH.name());
