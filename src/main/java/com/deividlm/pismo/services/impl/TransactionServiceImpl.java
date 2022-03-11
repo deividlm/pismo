@@ -6,7 +6,6 @@ import com.deividlm.pismo.models.TransactionModel;
 import com.deividlm.pismo.operations.Operation;
 import com.deividlm.pismo.operations.OperationFactory;
 import com.deividlm.pismo.repositories.AccountRepository;
-import com.deividlm.pismo.repositories.TransactionRepository;
 import com.deividlm.pismo.services.TransactionService;
 import com.deividlm.pismo.validations.TransactionValidator;
 import org.springframework.beans.factory.annotation.Autowired;
