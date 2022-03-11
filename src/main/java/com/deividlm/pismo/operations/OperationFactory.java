@@ -1,6 +1,5 @@
 package com.deividlm.pismo.operations;
 
-import com.deividlm.pismo.enums.TransactionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

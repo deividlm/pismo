@@ -1,13 +1,8 @@
 package com.deividlm.pismo.controllers;
 
-import com.deividlm.pismo.dtos.AccountDto;
 import com.deividlm.pismo.dtos.TransactionDto;
 import com.deividlm.pismo.enums.TransactionType;
-import com.deividlm.pismo.models.AccountModel;
-import com.deividlm.pismo.models.TransactionModel;
-import com.deividlm.pismo.repositories.AccountRepository;
 import com.deividlm.pismo.repositories.TransactionRepository;
-import com.deividlm.pismo.services.AccountService;
 import com.deividlm.pismo.services.TransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -18,11 +13,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.UUID;
 
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
