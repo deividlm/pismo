@@ -34,12 +34,6 @@ public class AccountControllerTest {
     @MockBean
     private AccountService accountService;
 
-    @MockBean
-    private AccountRepository accountRepository;
-
-    @MockBean
-    private ModelMapper modelMapper;
-
     private AccountModel accountModel;
 
     @BeforeEach
@@ -55,7 +49,7 @@ public class AccountControllerTest {
 
 
     @Test
-    void whenCreateAccountValidUrlAndMethodAndContentType_thenReturnsOk() throws Exception {
+    void whenCreateAccountValidUrlAndMethodAndContentTypeThenReturnsOk() throws Exception {
         AccountDto accountDto = new AccountDto();
         accountDto.setDocumentNumber("123569");
         given(accountService.createAccount(any())).willReturn(accountModel);
@@ -68,7 +62,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    void whenCreateAccountWithDocumentTypeNull_thenReturnsBadRequest() throws Exception {
+    void whenCreateAccountWithDocumentTypeNullThenReturnsBadRequest() throws Exception {
         AccountDto accountDto = new AccountDto();
         given(accountService.createAccount(any())).willReturn(accountModel);
 
@@ -79,7 +73,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    void whenGetOneAccountValidUrlAndMethodAndContentType_thenReturnsOk() throws Exception {
+    void whenGetOneAccountValidUrlAndMethodAndContentTypeThenReturnsOk() throws Exception {
         final UUID accountId = UUID.randomUUID();
         AccountModel accountModel = new AccountModel();
         accountModel.setAccountId(accountId);

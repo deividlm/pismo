@@ -72,7 +72,7 @@ public class TransactionServiceTest {
         this.transactionDto.setAccountId(accountId);
         this.transactionDto.setAmount(new BigDecimal("100"));
 
-        accountModel = new AccountModel();
+        this.accountModel = new AccountModel();
         accountModel.setAccountId(accountId);
         this.transactionModel = new TransactionModel();
         this.transactionModel.setTransactionType(TransactionType.WITHDRAWN);

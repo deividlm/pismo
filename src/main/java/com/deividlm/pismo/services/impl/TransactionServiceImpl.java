@@ -21,7 +21,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     public TransactionServiceImpl(OperationFactory operationFactory,
-                                  TransactionRepository transactionRepository,
                                   AccountRepository accountRepository,
                                   TransactionValidator transactionValidator){
         this.operationFactory = operationFactory;

@@ -1,6 +1,5 @@
 package com.deividlm.pismo.dtos;
 
-import com.deividlm.pismo.models.AccountModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

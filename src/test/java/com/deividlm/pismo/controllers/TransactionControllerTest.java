@@ -2,14 +2,10 @@ package com.deividlm.pismo.controllers;
 
 import com.deividlm.pismo.dtos.TransactionDto;
 import com.deividlm.pismo.enums.TransactionType;
-import com.deividlm.pismo.repositories.TransactionRepository;
-import com.deividlm.pismo.services.TransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -29,7 +25,7 @@ public class TransactionControllerTest {
 
 
     @Test
-    void whenCreateTransactionValidUrlAndMethodAndContentType_thenReturnsOk() throws Exception {
+    void whenCreateTransactionValidUrlAndMethodAndContentTypeThenReturnsOk() throws Exception {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setTransactionType(TransactionType.CASH.name());
         transactionDto.setAccountId(UUID.randomUUID());
@@ -42,7 +38,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void whenCreateTransactionWithAccountIdNull_thenReturnBadRequest() throws Exception {
+    void whenCreateTransactionWithAccountIdNullThenReturnBadRequest() throws Exception {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setTransactionType(TransactionType.CASH.name());
         transactionDto.setAmount(new BigDecimal("100"));
@@ -54,7 +50,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void whenCreateTransactionWithTransactionype_thenReturnBadRequest() throws Exception {
+    void whenCreateTransactionWithTransactionTypeThenReturnBadRequest() throws Exception {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setAccountId(UUID.randomUUID());
         transactionDto.setAmount(new BigDecimal("100"));
@@ -66,7 +62,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void whenCreateTransactionWithAmountNull_thenReturnBadRequest() throws Exception {
+    void whenCreateTransactionWithAmountNullThenReturnBadRequest() throws Exception {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setAccountId(UUID.randomUUID());
         transactionDto.setTransactionType(TransactionType.CASH.name());
