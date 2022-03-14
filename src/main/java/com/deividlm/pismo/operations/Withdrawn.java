@@ -36,6 +36,6 @@ public class Withdrawn implements Operation{
 
     @Override
     public String getOperationName() {
-        return TransactionType.PAYMENT.name();
+        return TransactionType.WITHDRAWN.name();
     }
 }

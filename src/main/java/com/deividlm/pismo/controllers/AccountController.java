@@ -15,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -51,9 +54,7 @@ public class AccountController {
                      })
     @PostMapping
     public ResponseEntity<Object> createAccount(@Validated @RequestBody AccountDto accountDto){
-        if(accountService.existsByDocumentNumber(accountDto.getDocumentNumber())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Account with this document number already taken!");
-        }
+
         AccountModel accountModel = accountService.createAccount(accountDto);
         accountDto.setAccountId(accountModel.getAccountId());
         log.info("Account created successful! {}",accountDto.getAccountId());
@@ -83,6 +84,17 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.OK).body(accountModelOptional.get());
         }
 
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage()));
+
+        return errors;
     }
 
 }

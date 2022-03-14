@@ -1,15 +1,15 @@
 package com.deividlm.pismo.services.impl;
 
 import com.deividlm.pismo.dtos.AccountDto;
+import com.deividlm.pismo.models.AccountModel;
+import com.deividlm.pismo.repositories.AccountRepository;
 import com.deividlm.pismo.services.AccountService;
-
-import java.util.Optional;
-import java.util.UUID;
-import com.deividlm.pismo.models.*;
-import com.deividlm.pismo.repositories.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -33,8 +33,4 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.save(modelMapper.map(accountDto, AccountModel.class) );
     }
 
-    @Override
-    public boolean existsByDocumentNumber(String documentNumber) {
-        return accountRepository.existsByDocumentNumber(documentNumber);
-    }
 }

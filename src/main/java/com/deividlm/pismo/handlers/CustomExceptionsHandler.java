@@ -1,8 +1,6 @@
 package com.deividlm.pismo.handlers;
 
-import com.deividlm.pismo.exceptions.ExceptionResponseEntity;
-import com.deividlm.pismo.exceptions.InvalidAmountValueException;
-import com.deividlm.pismo.exceptions.ResourceNotFoundException;
+import com.deividlm.pismo.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,6 +26,22 @@ public class CustomExceptionsHandler extends ResponseEntityExceptionHandler {
         ExceptionResponseEntity exceptionResponseEntity = new ExceptionResponseEntity(exception.getMessage(), webRequest.getDescription(false), new Date());
         return new ResponseEntity<>(exceptionResponseEntity, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ExceptionResponseEntity> handlerGeneralException(Exception exception, WebRequest webRequest){
+        ExceptionResponseEntity exceptionResponseEntity = new ExceptionResponseEntity(exception.getMessage(), webRequest.getDescription(false), new Date());
+        return new ResponseEntity<>(exceptionResponseEntity, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
+    @ExceptionHandler(UniqueViolationException.class)
+    public final ResponseEntity<ExceptionResponseEntity> handlerUniqueViolationException(Exception exception, WebRequest webRequest){
+        ExceptionResponseEntity exceptionResponseEntity = new ExceptionResponseEntity(exception.getMessage(), webRequest.getDescription(false), new Date());
+        return new ResponseEntity<>(exceptionResponseEntity, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidInputException.class)
+    public final ResponseEntity<ExceptionResponseEntity> handlerInvalidInputException(Exception exception, WebRequest webRequest){
+        ExceptionResponseEntity exceptionResponseEntity = new ExceptionResponseEntity(exception.getMessage(), webRequest.getDescription(false), new Date());
+        return new ResponseEntity<>(exceptionResponseEntity, HttpStatus.BAD_REQUEST);
+    }
 
 }
