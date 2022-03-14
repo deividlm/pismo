@@ -2,10 +2,13 @@ package com.deividlm.pismo.controllers;
 
 import com.deividlm.pismo.dtos.TransactionDto;
 import com.deividlm.pismo.enums.TransactionType;
+import com.deividlm.pismo.services.TransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -23,6 +26,11 @@ public class TransactionControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @MockBean
+    private ModelMapper modelMapper;
+
+    @MockBean
+    TransactionService transactionService;
 
     @Test
     void whenCreateTransactionValidUrlAndMethodAndContentTypeThenReturnsOk() throws Exception {
