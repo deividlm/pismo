@@ -3,7 +3,6 @@ package com.deividlm.pismo.repositories;
 import com.deividlm.pismo.enums.TransactionType;
 import com.deividlm.pismo.models.AccountModel;
 import com.deividlm.pismo.models.TransactionModel;
-import org.junit.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -13,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
