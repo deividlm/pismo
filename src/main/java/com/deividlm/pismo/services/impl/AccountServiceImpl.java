@@ -1,6 +1,7 @@
 package com.deividlm.pismo.services.impl;
 
 import com.deividlm.pismo.dtos.AccountDto;
+import com.deividlm.pismo.exceptions.UniqueViolationException;
 import com.deividlm.pismo.models.AccountModel;
 import com.deividlm.pismo.repositories.AccountRepository;
 import com.deividlm.pismo.services.AccountService;
@@ -30,7 +31,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountModel createAccount(AccountDto accountDto) {
+        if(existsByDocumentNumber(accountDto.getDocumentNumber())){
+            throw new UniqueViolationException("Account with this document number already taken!");
+        }
         return accountRepository.save(modelMapper.map(accountDto, AccountModel.class) );
+    }
+
+    @Override
+    public boolean existsByDocumentNumber(String documentNumber) {
+        return accountRepository.existsByDocumentNumber(documentNumber);
     }
 
 }

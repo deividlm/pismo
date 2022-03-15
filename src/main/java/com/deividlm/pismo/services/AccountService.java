@@ -12,5 +12,6 @@ public interface AccountService {
 
     Optional<AccountModel> findById(UUID accountId);
     AccountModel createAccount(AccountDto accountDto);
+    public boolean existsByDocumentNumber(String documentNumber);
 
 }
