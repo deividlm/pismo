@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.Assert.assertNotNull;
@@ -25,6 +26,8 @@ class AccountRepositoryTest {
     public void setUp() {
         accountModel = new AccountModel();
         accountModel.setDocumentNumber("1234568");
+        accountModel.setAvailableCreditLimit(new BigDecimal("1000.00"));
+
     }
 
     @Test
@@ -34,6 +37,7 @@ class AccountRepositoryTest {
 
         assertNotNull(accountModelResult);
         assertEquals(accountModel.getDocumentNumber(), accountModelResult.getDocumentNumber());
+        assertEquals(accountModel.getAvailableCreditLimit(), accountModelResult.getAvailableCreditLimit());
     }
 
     @Test

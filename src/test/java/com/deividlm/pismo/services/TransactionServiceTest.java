@@ -4,6 +4,7 @@ import com.deividlm.pismo.dtos.TransactionDto;
 import com.deividlm.pismo.enums.TransactionType;
 import com.deividlm.pismo.exceptions.InvalidAmountValueException;
 import com.deividlm.pismo.exceptions.ResourceNotFoundException;
+import com.deividlm.pismo.exceptions.UnavailableCreditLimitException;
 import com.deividlm.pismo.models.AccountModel;
 import com.deividlm.pismo.models.TransactionModel;
 import com.deividlm.pismo.operations.OperationFactory;
@@ -16,15 +17,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+
 
 
 @SpringBootTest
@@ -54,10 +56,10 @@ public class TransactionServiceTest {
 
     private Optional<AccountModel>  accountModelOptional;
 
-    @MockBean
+    @SpyBean
     private Withdrawn operation ;
 
-    @MockBean
+    @SpyBean
     private TransactionValidator transactionValidator;
 
     @BeforeEach
@@ -88,7 +90,6 @@ public class TransactionServiceTest {
         given(transactionRepository.save(any())).willReturn(transactionModel);
         given(operationFactory.findOperation(any())).willReturn(operation);
         given(accountRepository.findById(any())).willReturn(accountModelOptional);
-        given(operation.makeOperation(any())).willReturn(transactionModel);
 
         TransactionModel transactionModelResult = transactionService.makeTransaction(transactionDto);
 
@@ -118,6 +119,19 @@ public class TransactionServiceTest {
         } catch (Exception e) {
             assertEquals(ResourceNotFoundException.class, e.getClass());
         }
+
+    }
+
+    @Test
+    void whenCreateNewTransactionThrowsUnavailableCreditLimit(){
+        this.accountModel.setAvailableCreditLimit(BigDecimal.TEN);
+        given(transactionRepository.save(any())).willReturn(transactionModel);
+        given(operationFactory.findOperation(any())).willReturn(operation);
+        given(accountRepository.findById(any())).willReturn(accountModelOptional);
+
+        Exception exception = assertThrows(UnavailableCreditLimitException.class, () -> {
+           this.transactionService.makeTransaction(transactionDto);
+        });
 
     }
 

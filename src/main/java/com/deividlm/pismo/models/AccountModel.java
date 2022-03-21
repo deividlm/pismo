@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,6 +26,9 @@ public class AccountModel  implements Serializable {
     @OneToMany(mappedBy = "account",orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<TransactionModel> transactions;
+
+    @Column(nullable = false)
+    private BigDecimal availableCreditLimit;
 
 
 }

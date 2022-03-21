@@ -1,6 +1,7 @@
 package com.deividlm.pismo.services.impl;
 
 import com.deividlm.pismo.dtos.AccountDto;
+import com.deividlm.pismo.exceptions.ResourceNotFoundException;
 import com.deividlm.pismo.exceptions.UniqueViolationException;
 import com.deividlm.pismo.models.AccountModel;
 import com.deividlm.pismo.repositories.AccountRepository;
@@ -9,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,6 +42,13 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean existsByDocumentNumber(String documentNumber) {
         return accountRepository.existsByDocumentNumber(documentNumber);
+    }
+
+    @Override
+    public void updateCreditLimit(BigDecimal amount, UUID accountID) {
+        AccountModel accountModel = accountRepository.findById(accountID).orElseThrow(() -> new ResourceNotFoundException("Account not found"));
+        accountModel.setAvailableCreditLimit(accountModel.getAvailableCreditLimit().add(amount));
+        accountRepository.save(accountModel);
     }
 
 }

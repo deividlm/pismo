@@ -4,6 +4,7 @@ import com.deividlm.pismo.dtos.TransactionDto;
 import com.deividlm.pismo.enums.TransactionType;
 import com.deividlm.pismo.models.TransactionModel;
 import com.deividlm.pismo.repositories.TransactionRepository;
+import com.deividlm.pismo.validations.TransactionValidator;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,26 @@ public class Cash implements Operation{
 
     private TransactionRepository transactionRepository;
     private ModelMapper modelMapper;
+    private TransactionValidator transactionValidator;
 
     @Autowired
-    public Cash (TransactionRepository transactionRepository,ModelMapper modelMapper){
+    public Cash (TransactionRepository transactionRepository,
+                 ModelMapper modelMapper,
+                 TransactionValidator transactionValidator){
         this.transactionRepository = transactionRepository;
         this.modelMapper = modelMapper;
+        this.transactionValidator = transactionValidator;
     }
 
     @Override
     public TransactionModel makeOperation(TransactionDto transactionDto) {
         TransactionModel transactionModel = modelMapper.map(transactionDto,TransactionModel.class);
-        transactionModel.setAmount(transactionDto.getAmount().negate());
         transactionModel.setEventDate(LocalDateTime.now());
 
+        transactionValidator.checkAvailableCreditLimit(transactionDto.getAmount(), transactionDto.getAccountId());
+
+
+        transactionModel.setAmount(transactionDto.getAmount().negate());
         transactionModel = transactionRepository.save(transactionModel);
         log.debug("Cash transaction saved successfully");
         return transactionModel;

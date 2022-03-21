@@ -44,4 +44,10 @@ public class CustomExceptionsHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionResponseEntity, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UnavailableCreditLimitException.class)
+    public final ResponseEntity<ExceptionResponseEntity> handlerUnavailableCreditLimitException(Exception exception, WebRequest webRequest){
+        ExceptionResponseEntity exceptionResponseEntity = new ExceptionResponseEntity(exception.getMessage(), webRequest.getDescription(false), new Date());
+        return new ResponseEntity<>(exceptionResponseEntity, HttpStatus.BAD_REQUEST);
+    }
+
 }
