@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -54,6 +55,7 @@ public class AccountControllerTest {
     void whenCreateAccountValidUrlAndMethodAndContentTypeThenReturnsOk() throws Exception {
         AccountDto accountDto = new AccountDto();
         accountDto.setDocumentNumber("123569");
+        accountDto.setAvailableCreditLimit(new BigDecimal("100.00"));
         given(accountService.createAccount(any())).willReturn(accountModel);
 
 

@@ -33,8 +33,10 @@ public class TransactionRepositoryTest {
     private void setUp(){
         this.accountModel = new AccountModel();
         this.accountModel.setDocumentNumber("123456789");
+        this.accountModel.setAvailableCreditLimit(new BigDecimal("100.00"));
         this.transactionModel = new TransactionModel();
         this.transactionModel.setAmount(BigDecimal.TEN);
+
     }
 
     @AfterEach

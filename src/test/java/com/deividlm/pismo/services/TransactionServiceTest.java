@@ -26,7 +26,8 @@ import java.util.UUID;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.doNothing;
 
 
 @SpringBootTest
@@ -76,6 +77,7 @@ public class TransactionServiceTest {
 
         this.accountModel = new AccountModel();
         accountModel.setAccountId(accountId);
+        accountModel.setAvailableCreditLimit(new BigDecimal("100"));
         this.transactionModel = new TransactionModel();
         this.transactionModel.setTransactionType(TransactionType.WITHDRAWN);
         this.transactionModel.setAccount(accountModel);
@@ -101,13 +103,14 @@ public class TransactionServiceTest {
 
     @Test
     void whenCreateNewTransactionThenThrowsInvalidAmountValueException(){
-        given(transactionValidator.validateAmountValue(any())).willThrow(InvalidAmountValueException.class);
+        this.transactionDto.setAmount(BigDecimal.ZERO);
+        given(transactionRepository.save(any())).willReturn(transactionModel);
+        given(operationFactory.findOperation(any())).willReturn(operation);
+        given(accountRepository.findById(any())).willReturn(accountModelOptional);
 
-        try {
+        Exception ex = assertThrows(InvalidAmountValueException.class, () -> {
             transactionService.makeTransaction(transactionDto);
-        } catch (Exception e) {
-            assertEquals(InvalidAmountValueException.class, e.getClass());
-        }
+        });
 
     }
 
